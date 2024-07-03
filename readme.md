@@ -38,4 +38,4 @@ cd csmalltalk
         😍<br/>
         </td>
     </tr>
-</table>
+</table> 
