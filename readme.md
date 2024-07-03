@@ -17,3 +17,26 @@
         </td>
     </tr>
 </table>
+<table border="1"> <caption>下载它!</caption>
+    <tr>
+        <td>
+        &nbsp;&nbsp;&nbsp;做好自己的每一步! <br>
+        <pre>
+        <code>git clone "https://gitee.com/ClassesWorld/csmallltalk.git"
+# still waiting...
+cd csmalltalk
+./c57lc # If it failed, enter this:
+# chmod +x ./c57lc
+</code>
+</pre>
+        </td>
+        <td>
+        😘<br>
+        💕<br>
+        😁<br>
+        👌<br>
+        😒<br>
+        😍<br>
+        </td>
+    </tr>
+</table>
