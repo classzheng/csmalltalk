@@ -22,10 +22,10 @@
         <td>
         &nbsp;&nbsp;&nbsp;做好自己的每一步! <br>
         <pre>
-        <code>git clone "https://gitee.com/ClassesWorld/csmallltalk.git"       .
+        <code>git clone "https://gitee.com/ClassesWorld/csmallltalk.git"           .
 # still waiting...
 cd csmalltalk
-./c57lc # If it failed, enter this:            .
+./c57lc # If it failed, enter this:
 # chmod +x ./c57lc
 </code>
 </pre>
