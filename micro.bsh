@@ -1,0 +1,2 @@
+#! /usr/bin/bash
+micro *.c *.h
