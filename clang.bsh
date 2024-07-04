@@ -1,2 +1,0 @@
-#! /usr/bin/bash
-clang ./CSmalltalk.c -o c57lc -O2 -debug
