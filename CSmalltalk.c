@@ -1,15 +1,14 @@
 // CSmalltalk.C
 #include "CSmalltalk.h"
 void sgnAbrt(int sgn) {
-	C57LOG("[@CSmalltalk logout] Program abort.%s","\r\n");
 	THROW(C57Exp,PROGRAM_ABORT);
 	return ;
 }
 int main(FPARAM(_arg,__arg,___arg)) { // Ha
 	TRY(C57Exp,exp) {
-		C57LOG("[@CSmalltalk launch] Coffee57 Launch.%s","\r\n");
+		C57LOG("[@CSmalltalk launch] CSmalltalk Launch.%s","\r\n");
 		CSmalltalk c57vm = {
-		  .rcode=_Mul("[[[[Car new] sold] named: [Name makeWith: 'Didi']] fly]."),
+		  .rcode=_Mul("[[[[Car new] sold] named: 'Didi'] fly]."),
 		  .limit=detect,
 		},JUST_LIKE_THAT;
 		c57vm,parse(&c57vm);

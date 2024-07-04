@@ -38,6 +38,11 @@
 #define FPARAM(argc,argv,env) signed argc,const char* argv[], const char* env[]
 #define THBLOCK(...) if(True)
 #define PARAM 0 +
+#define C57Pair(type1,type2) \
+struct {                    \
+  type1 first;              \
+  type2 second;             \
+} 
 
 typedef enum {
 	False,

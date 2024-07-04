@@ -1,7 +1,9 @@
 // CSmalltalk.h
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "Pseudo.h"
 #include "FMacro.h"
-#include "stdio.h"
-#include "string.h"
 #define $ model->private
 #define detect ((short)-1)
 typedef struct {
@@ -19,7 +21,7 @@ char*substr(const char*str,int beg,int end) {
 	}
 	return sub;
 }
-short i,j,k,h,w,cnt0,cnt1;
+short i,j,k,h,w,cnt0,cnt1,temp;
 Bool parse(CSmalltalk* model) {
 	if(model->limit==detect) model->limit=strlen(model->rcode);
 	$.bracks=(short*)malloc(model->limit*sizeof(short));
@@ -37,6 +39,9 @@ Bool parse(CSmalltalk* model) {
 	  	  if($.bracks[i]>=0) cnt1++;
 	  	  if(cnt1==cnt0+1) {
 	  	    C57LOG("%s Execute.%s%s",substr(model->rcode,$.bracks[i],-$.bracks[j]),"\r","\n");
+	  	    for(k=$.bracks[i];k<=-$.bracks[j];k++) {
+	  	    	model->rcode[k]='/';
+	  	    }
 			break;
 	  	  }
 	  	}
@@ -48,9 +53,9 @@ Bool parse(CSmalltalk* model) {
 	}
 	return True;
 }
-#undef $
 char beef[128];
 char* _Mul(const char* rawcc) {
 	strcpy(beef,rawcc);
 	return beef;
 }
+#undef $
