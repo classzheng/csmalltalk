@@ -20,18 +20,14 @@
     <tr>
         <td>
         &nbsp;&nbsp;&nbsp;做好自己的每一步! <br>
-        <pre>
-        <code>git clone "https://gitee.com/ClassesWorld/csmallltalk.git"            
-# still waiting...
+<pre>
+<code>git clone "https://gitee.com/ClassesWorld/csmallltalk.git"            
 cd csmalltalk
-./c57lc # If it failed, enter this:
-# chmod +x ./c57lc
-</code>
+micro *.c *.h *.c57</code>
 </pre>
         </td>
         <td>
         😘<br/>
-        💕<br/>
         😁<br/>
         👌<br/>
         😒<br/>
