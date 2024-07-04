@@ -6,7 +6,6 @@ void sgnAbrt(int sgn) {
 }
 int main(FPARAM(_arg,__arg,___arg)) { // Ha
 	TRY(C57Exp,exp) {
-		regsgH(sgnAbrt);
 		C57LOG("[@CSmalltalk launch] CSmalltalk Launch.%s","\r\n");
 		CSmalltalk c57vm = {
 		  .rcode=_Mul("[[[[Car new] sold] named: 'Didi'] fly]."),

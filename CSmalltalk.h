@@ -6,11 +6,12 @@
 #include "FMacro.h"
 #define $ model->private
 #define detect ((short)-1)
-#define pc(...)     struct {__VA_ARGS__;}
+#define pc(n)     struct {n;}
 typedef char* string;
 typedef struct {
 	char* rcode;
 	short limit;
+	string*sybl;
 	struct {
 		short* bracks;
 		     int btop;
@@ -19,12 +20,11 @@ typedef struct {
 	} private;
 } CSmalltalk;
 typedef struct {
-pc(string path)sObj; // Son Object
-pc(Bytecode*)  lObj; // Lambda Object
-	string rdata;
-	string symbol;
+	string   path;
+	Bytecode*mth;
+	string   rdata;
+	string   symbol;
 } C57Object;
-C57Object* objPool;
 char*substr(const char*str,int beg,int end) {
 	char*sub=(char*)malloc((end-beg+1)*sizeof(char));
 	for(unsigned i = 0; i<(end-beg+1); i++) {
@@ -32,7 +32,8 @@ char*substr(const char*str,int beg,int end) {
 	}
 	return sub;
 }
-short i,j,k,h,w,cnt0,cnt1,temp;
+short i,j,k,h,w,cnt0,cnt1,temp,ptop=0;
+C57Object* objPool;
 Bool parse(CSmalltalk* model) {
 	if(model->limit==detect) model->limit=strlen(model->rcode);
 	$.bracks=(short*)malloc(model->limit*sizeof(short));
@@ -66,14 +67,45 @@ Bool parse(CSmalltalk* model) {
 	}
 	return True;
 }
-/** CSmalltalk基础类
- * Pussy -  定义对象符号
- * 
+/** CSmalltalk基础对象
+ * Pussy -   定义对象符号
+ * symbol -  Pussy子对象
  **/
 void flint(CSmalltalk* model) {
-	objPool=(C57Object*)malloc(sizeof(C57Object)*  );
-	
+	objPool=(C57Object*)malloc(sizeof(C57Object)*2);
+  	C57Object psy={
+  	  .symbol="Pussy",
+  	  .rdata="(pussy)"
+  	},syb={
+      .symbol="symbol",
+      .rdata="(lambda)",
+  	  .path="Pussy>"
+  	}; // The SIMPLEST C57OBJECT!!!
+    objPool[0]=psy;
+    objPool[1]=syb;
+    ptop=2;
 	return ;
+}
+short top;
+Bytecode* compile(CSmalltalk* model) { // Still writing...
+	Bytecode* ObjFile=(Bytecode*)malloc(sizeof(Bytecode)*1024);
+	for(i=0; i<$.etop; i++) {
+		for(j=0; j<strlen($.excgo[i]); j++) {
+			if($.excgo[i][j]=='[') break;
+		}
+		char obj[64],method[64];
+		sscanf($.excgo+i+j+1,"%s%s",obj,method);
+		if(method[strlen(method)-1]==':') {
+			
+		}
+		if((!strcmp(obj,"Pussy"))&&(!strcmp(method,"symbol"))) {
+			
+		}
+		if(obj[0]='/') { // Function-return
+			
+		}
+	}
+	return ObjFile;
 }
 char beef[128];
 char* _Mul(const char* rawcc) {
