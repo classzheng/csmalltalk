@@ -56,6 +56,9 @@ void NeutralInt(Bytecode* method,short limit) {  // Wait for me
 #define EXT EXT,
 #define SWP SWP,
 #define PRTF PRTF,
+/*****************************************
+* for Example                            *
+*  @classzheng 2024.7.4                  *
 int main(void) {
     Bytecode area[]={
     // #define Line(n) Line##n
@@ -74,3 +77,5 @@ int main(void) {
     NeutralInt(area,13);
     return 0;
 }
+*                                         *
+*******************************************/
