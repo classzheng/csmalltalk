@@ -6,12 +6,13 @@ void sgnAbrt(int sgn) {
 }
 int main(FPARAM(_arg,__arg,___arg)) { // Ha
 	TRY(C57Exp,exp) {
+		regsgH(sgnAbrt);
 		C57LOG("[@CSmalltalk launch] CSmalltalk Launch.%s","\r\n");
 		CSmalltalk c57vm = {
 		  .rcode=_Mul("[[[[Car new] sold] named: 'Didi'] fly]."),
 		  .limit=detect,
 		},JUST_LIKE_THAT;
-		c57vm,parse(&c57vm);
+		c57vm,parse(&c57vm),flint(&c57vm);
 		C57LOG("[@CSmalltalk logout] EXIT 0.%s","\r\n");
 		return 0;
 	} CATCH(exp,ENOUGH_MEM) {

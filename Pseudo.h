@@ -9,18 +9,12 @@ struct {
 } virtual;
 typedef enum {
 	NOP=0,XOR,ADD,MUL,DIV,MOV,IMM,
-	PRTF,EXT,SWP,
+	PRTF,EXT,CPY,
 	AX,BX,CX,DX,SP,BP,SI,DI,IP,CS,DS,SS,ES,
 	IMMT=-1
 } Bytecode;
-void swap_str(char*a,char*b) {
-    char*temp=a;
-    strcpy(a,b);
-    strcpy(b,temp);
-    return ;
-}
 short i,j,k,h,w,cnt0,cnt1,temp;
-void NeutralInt(Bytecode* method,short limit) {  // Wait for me
+void NeutralInt(Bytecode* method,short limit) {
 	virtual.stac=(unsigned char*)malloc(128);
 	virtual.regy=(unsigned char*)malloc(16);
 	for(i=0; i<limit; i++) {
@@ -41,21 +35,24 @@ void NeutralInt(Bytecode* method,short limit) {  // Wait for me
   		  	printf("%s",virtual.mem+virtual.immt,0,virtual.regy[method[i+1]-AX]);
   		  else _case(EXT)
   		  	if(virtual.regy[method[i+1]-AX]) i=virtual.immt;
-  		  else _case(SWP)
-  		    swap_str(virtual.regy[method[i+1]-AX],virtual.immt);
+  		  else _case(CPY)
+  		    strcpy(virtual.mem+virtual.regy[method[i+1]-AX],virtual.mem+virtual.regy[method[i+2]-AX]),i+=2;
   		  else _case(NOP); // You should do nothing...
 	}
 	return ;
 }
-#define XOR XOR,
-#define ADD ADD,
-#define MUL MUL,
-#define DIV DIV,
-#define MOV MOV,
-#define IMM IMM,
-#define EXT EXT,
-#define SWP SWP,
-#define PRTF PRTF,
+// #ifdef PseuCmd
+#ifdef PseuCmd
+# define XOR XOR,
+# define ADD ADD,
+# define MUL MUL,
+# define DIV DIV,
+# define MOV MOV,
+# define IMM IMM,
+# define EXT EXT,
+# define CPY CPY,
+# define PRTF PRTF,
+#endif
 /*****************************************
 * for Example                            *
 *  @classzheng 2024.7.4                  *

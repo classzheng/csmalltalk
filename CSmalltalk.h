@@ -6,14 +6,25 @@
 #include "FMacro.h"
 #define $ model->private
 #define detect ((short)-1)
+#define pc(...)     struct {__VA_ARGS__;}
+typedef char* string;
 typedef struct {
 	char* rcode;
 	short limit;
 	struct {
 		short* bracks;
 		     int btop;
+		string* excgo;
+			 int etop;
 	} private;
 } CSmalltalk;
+typedef struct {
+pc(string path)sObj; // Son Object
+pc(Bytecode*)  lObj; // Lambda Object
+	string rdata;
+	string symbol;
+} C57Object;
+C57Object* objPool;
 char*substr(const char*str,int beg,int end) {
 	char*sub=(char*)malloc((end-beg+1)*sizeof(char));
 	for(unsigned i = 0; i<(end-beg+1); i++) {
@@ -32,13 +43,15 @@ Bool parse(CSmalltalk* model) {
 		if(model->rcode[i]==']')
 		 $.bracks[$.btop++]= -i;
 	}
+	$.excgo=(string*)malloc($.btop*sizeof(string)/2);
+	$.etop=0;
 	for(j=0,cnt0=0; j<$.btop;j++) {
 	  if($.bracks[j]<0) {
 	  	cnt1=0;
 	  	for(i=j; i>=0; i--) {
 	  	  if($.bracks[i]>=0) cnt1++;
 	  	  if(cnt1==cnt0+1) {
-	  	    C57LOG("%s Execute.%s%s",substr(model->rcode,$.bracks[i],-$.bracks[j]),"\r","\n");
+	  	    $.excgo[$.etop++]=substr(model->rcode,$.bracks[i],-$.bracks[j]);
 	  	    for(k=$.bracks[i];k<=-$.bracks[j];k++) {
 	  	    	model->rcode[k]='/';
 	  	    }
@@ -52,6 +65,15 @@ Bool parse(CSmalltalk* model) {
 		C57LOG(" - %d\n",$.bracks[j]);
 	}
 	return True;
+}
+/** CSmalltalk基础类
+ * Pussy -  定义对象符号
+ * 
+ **/
+void flint(CSmalltalk* model) {
+	objPool=(C57Object*)malloc(sizeof(C57Object)*  );
+	
+	return ;
 }
 char beef[128];
 char* _Mul(const char* rawcc) {
