@@ -1,9 +1,4 @@
 // CSmalltalk.C
-#include "CSmalltalk.h"
-void sgnAbrt(int sgn) {
-	THROW(C57Exp,PROGRAM_ABORT);
-	return ;
-}
 int main(FPARAM(_arg,__arg,___arg)) { // Ha
 	TRY(C57Exp,exp) {
 		C57LOG("[@CSmalltalk launch] CSmalltalk Launch.%s","\r\n");
@@ -12,6 +7,7 @@ int main(FPARAM(_arg,__arg,___arg)) { // Ha
 		  .limit=detect,
 		},JUST_LIKE_THAT;
 		c57vm,parse(&c57vm),flint(&c57vm);
+		NeutralInt(compile(&c57vm),lmt);
 		C57LOG("[@CSmalltalk logout] EXIT 0.%s","\r\n");
 		return 0;
 	} CATCH(exp,ENOUGH_MEM) {

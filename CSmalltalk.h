@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define PseuCmd
 #include "Pseudo.h"
 #include "FMacro.h"
 #define $ model->private
@@ -22,6 +23,7 @@ typedef struct {
 typedef struct {
 	string   path;
 	Bytecode*mth;
+	short    mlt;
 	string   rdata;
 	string   symbol;
 } C57Object;
@@ -67,10 +69,6 @@ Bool parse(CSmalltalk* model) {
 	}
 	return True;
 }
-/** CSmalltalk基础对象
- * Pussy -   定义对象符号
- * symbol -  Pussy子对象
- **/
 void flint(CSmalltalk* model) {
 	objPool=(C57Object*)malloc(sizeof(C57Object)*2);
   	C57Object psy={
@@ -78,7 +76,7 @@ void flint(CSmalltalk* model) {
   	  .rdata="(pussy)"
   	},syb={
       .symbol="symbol",
-      .rdata="(lambda)",
+      .rdata="(lambda)", // Pseudo Lambda
   	  .path="Pussy>"
   	}; // The SIMPLEST C57OBJECT!!!
     objPool[0]=psy;
@@ -86,26 +84,63 @@ void flint(CSmalltalk* model) {
     ptop=2;
 	return ;
 }
-short top;
+short top,lmt;
 Bytecode* compile(CSmalltalk* model) { // Still writing...
 	Bytecode* ObjFile=(Bytecode*)malloc(sizeof(Bytecode)*1024);
-	for(i=0; i<$.etop; i++) {
+	for(i=0,lmt=0; i<$.etop; i++) {
 		for(j=0; j<strlen($.excgo[i]); j++) {
 			if($.excgo[i][j]=='[') break;
 		}
-		char obj[64],method[64];
+		char obj[64],method[64],args[128];
 		sscanf($.excgo+i+j+1,"%s%s",obj,method);
 		if(method[strlen(method)-1]==':') {
-			
+			for(k=0; k<strlen($.excgo)-i-j; k++) {
+				if(!strcmp(substr($.excgo,k,k+strlen(method)),method)) break;
+			}
+			k+=strlen(method);
+			strcpy(args,substr($.excgo,k,strlen($.excgo)-1)); // Split ARGS
 		}
-		if((!strcmp(obj,"Pussy"))&&(!strcmp(method,"symbol"))) {
-			
+		if((!strcmp(obj,"Pussy"))&&(!strcmp(method,"symbol"))) { // Program External
+			char mark[12];
+			sscanf(args,"%s",mark);
+			C57Object mrk={
+			  .symbol=mark,
+			  .rdata="(null)",
+			};
+			objPool=(C57Object*)malloc(sizeof(C57Object)*(++ptop));
+			objPool[ptop-1]=mrk;
+			Bytecode ret[]={
+#			ifdef PseuCmd
+			  IMM ptop-1,
+#			else
+			  IMM,ptop-1,
+#			endif
+			}; // Set return val
+			NeutralInt(ret,2);
+			lmt+=2;
+			continue;
 		}
 		if(obj[0]='/') { // Function-return
 			
 		}
 	}
 	return ObjFile;
+}
+#ifdef PseuCmd
+# undef XOR XOR,
+# undef NOT NOT,
+# undef ADD ADD,
+# undef SUB SUB,
+# undef MUL MUL,
+# undef DIV DIV,
+# undef MOV MOV,
+# undef IMM IMM,
+# undef EXT EXT,
+# undef CPY CPY,
+# undef PRTF PRTF,
+#endif
+void dumpPseu(Bytecode* area) {
+	return ;
 }
 char beef[128];
 char* _Mul(const char* rawcc) {

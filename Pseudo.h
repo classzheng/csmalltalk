@@ -9,7 +9,7 @@ struct {
   unsigned char  immt;
 } virtual;
 typedef enum {
-	NOP=0,XOR,ADD,MUL,DIV,MOV,IMM,
+	NOP=0,XOR,ADD,MUL,DIV,MOV,IMM,NOT,SUB
 	PRTF,EXT,CPY,
 	AX,BX,CX,DX,SP,BP,SI,DI,IP,CS,DS,SS,ES,
 	IMMT=-1
@@ -24,12 +24,16 @@ void NeutralInt(Bytecode* method,short limit) {
 		  	virtual.immt=virtual.immt^virtual.regy[method[i+1]-AX],i++;
 		  else _case(ADD) 
 		  	virtual.immt=virtual.immt+virtual.regy[method[i+1]-AX],i++;
+		  else _case(SUB) 
+		  	virtual.immt=virtual.immt+virtual.regy[method[i+1]-AX],i++;
+		  else _case(NOT) 
+		  	virtual.immt=(!virtual.regy[method[i+1]-AX]),i++;
 		  else _case(MUL) 
   		  	virtual.immt=virtual.immt*virtual.regy[method[i+1]-AX],i++;
   		  else _case(DIV) 
   		  	virtual.immt=virtual.immt/virtual.regy[method[i+1]-AX],i++;
   		  else _case(MOV) 
-  		  	virtual.regy[method[i+1]-AX]=(method[i+2]==-1?virtual.immt:method[i+2]),i+=2;
+  		  	virtual.regy[method[i+1]-AX]=(method[i+2]==IMMT?virtual.immt:method[i+2]),i+=2;
   		  else _case(IMM) 
   		  	virtual.immt=method[i+1],i++;
   		  else _case(PRTF)
@@ -42,10 +46,11 @@ void NeutralInt(Bytecode* method,short limit) {
 	}
 	return ;
 }
-// #ifdef PseuCmd
 #ifdef PseuCmd
 # define XOR XOR,
+# define NOT NOT,
 # define ADD ADD,
+# define SUB SUB,
 # define MUL MUL,
 # define DIV DIV,
 # define MOV MOV,
