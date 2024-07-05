@@ -102,7 +102,7 @@ int main(void) {
     // #define Line(n) Line##n
 //   Line0:
       MOV AX,5 , // AX=5;
-      IMM N 6    , // (immt)=6;
+      IMM 6    , // (immt)=6;
       ADD AX     , // immt+=AX;                 (immt=11,AX=5)
       MOV AX,11, // AX=11;
       PRTF AX    , // printf("%s",memory+immt);
