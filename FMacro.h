@@ -53,3 +53,27 @@ TRINT(C57Exp) {
 	NORMAL, PROGRAM_ABORT,
 	UNKNOWN, ENOUGH_MEM
 } EXCEPT_VAL;
+
+#define $ model->private
+#define pc(n)     struct {n;}
+#define detect ((short)-1)
+typedef char* string;
+typedef struct {
+	char* rcode;
+	short limit;
+	string*sybl;
+	struct {
+		short* bracks;
+		     int btop;
+		string* excgo;
+			 int etop;
+	} private;
+} CSmalltalk;
+typedef struct {
+	string   path;
+	Bytecode*mth;
+	short    mlt;
+	string   rdata;
+	string   symbol;
+} C57Object;
+C57Object* objPool;
