@@ -113,7 +113,7 @@ int main(void) {
 	virtual.mem=(unsigned char*)malloc(64);
 	virtual.mem=memory;
     NeutralInt(area,17);
-    dumpPseu(area);
+    dumpPseu(area),17;
     return 0;
 }
 *                                         *
