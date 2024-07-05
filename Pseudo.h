@@ -73,25 +73,12 @@ void dumpPseu(Bytecode* area,short limit) {
 		else if(area[i]==ES) printf("ES ");
 		else if(area[i]==IMMT) printf("IMMT ");
 		else {
-		    if(area[i+1]<=NOP) printf("%d",area[i]-24);
+		    if(area[i]<=NOP) printf("%d",area[i]);
+		    if(area[i]>=NOP) printf(",");
 		}
 	}
 	return ;
 }
-#define PseuCmd
-#ifdef PseuCmd
-# define XOR XOR,
-# define NOT NOT,
-# define ADD ADD,
-# define SUB SUB,
-# define MUL MUL,
-# define DIV DIV,
-# define MOV MOV,
-# define IMM IMM,
-# define EXT EXT,
-# define CPY CPY,
-# define PRTF PRTF,
-#endif
 /*****************************************
 * for Example                            *
 *  @classzheng 2024.7.4                  *
