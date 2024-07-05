@@ -10,7 +10,7 @@ struct {
 typedef enum {
     NOP=128,XOR,ADD,MUL,DIV,MOV,IMM,NOT,SUB,
 	PRTF,EXT,CPY,
-	AX,BX,CX,DX,SP,BP,SI,DI,IP,CS,DS,SS,ES,
+	AX,BX,CX,DX,SP,BP,SI,DI,IP,CS,DS,SS,ES,BRK,
 	IMMT=-1
 } Bytecode;
 short i,j,k,h,w,cnt0,cnt1,temp,ptop=0,lmt,ftop;

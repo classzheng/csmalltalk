@@ -126,7 +126,8 @@ Bytecode* compile(CSmalltalk* model) { // Still writing...
 			} else {
 				parse(model);
 				Bytecode* ret=compile(model);
-				for(k=0; k<ret; k++) {
+				for(k=0; ; k++) {
+					if(ret[k]==BRK) break;
 					ObjFile[lmt++]=ret[k];
 				}
 			}
