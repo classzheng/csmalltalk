@@ -102,7 +102,7 @@ Bytecode* compile(CSmalltalk* model) { // Still writing...
 		}
 		if((!strcmp(obj,"Pussy"))&&(!strcmp(method,"symbol:"))) { // Program External
 			char mark[12];
-			sscanf(args,"%s",mark);
+			sscanf(args+1,"%s",mark);
 			C57Object mrk={
 			  .symbol=mark+j+1,
 			  .rdata="(null)",
