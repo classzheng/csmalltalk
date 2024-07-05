@@ -102,7 +102,7 @@ Bytecode* compile(CSmalltalk* model) { // Still writing...
 		}
 		if((!strcmp(obj,"Pussy"))&&(!strcmp(method,"symbol:"))) { // Program External
 			char mark[12];
-			sscanf(args+1,"%s",mark);
+			sscanf(args,"%s",mark);
 			C57Object mrk={
 			  .symbol=mark+j+1,
 			  .rdata="(null)",
@@ -111,7 +111,7 @@ Bytecode* compile(CSmalltalk* model) { // Still writing...
 			objPool[ptop-1]=mrk;
 			ObjFile[lmt++]=IMM;
 			ObjFile[lmt++]=ptop-1;
-			C57LOG("%s\n",args);
+			C57LOG("%s\n",mark);
 			continue;
 		}
 		if(obj[0]=='/'||args[0]=='[') { // Function-return
