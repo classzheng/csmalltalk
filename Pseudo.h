@@ -101,12 +101,12 @@ int main(void) {
     Bytecode area[]={
     // #define Line(n) Line##n
 //   Line0:
-      MOV AX,N 5 , // AX=5;
+      MOV AX,5 , // AX=5;
       IMM N 6    , // (immt)=6;
       ADD AX     , // immt+=AX;                 (immt=11,AX=5)
-      MOV AX,N 11, // AX=11;
+      MOV AX,11, // AX=11;
       PRTF AX    , // printf("%s",memory+immt);
-      MOV AX,N 0 , // AX=0;
+      MOV AX,0 , // AX=0;
       EXT AX     , // if(AX) goto Line(immt);
     }; // Pseudo-AsSeMbly
     char memory[64]="classzheng\0Hello,world!\n\0";
