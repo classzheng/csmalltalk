@@ -46,18 +46,18 @@ void NeutralInt(Bytecode* method,short limit) {
 }
 void dumpPseu(Bytecode* area,short limit) {
 	for(i=0; i<limit; i++) {
-		if(area[i]==NOP) printf(" - NOP ");
-		else if(area[i]==XOR) printf(" - XOR ");
-		else if(area[i]==ADD) printf(" - ADD ");
-		else if(area[i]==MUL) printf(" - MUL ");
-		else if(area[i]==DIV) printf(" - DIV ");
-		else if(area[i]==MOV) printf(" - MOV ");
-		else if(area[i]==IMM) printf(" - IMM ");
-		else if(area[i]==NOT) printf(" - NOT ");
-		else if(area[i]==SUB) printf(" - SUB ");
-		else if(area[i]==PRTF) printf(" - PRTF ");
-		else if(area[i]==EXT) printf(" - EXT ");
-		else if(area[i]==CPY) printf(" - CPY ");
+		if(area[i]==NOP) printf("\n - NOP ");
+		else if(area[i]==XOR) printf("\n - XOR ");
+		else if(area[i]==ADD) printf("\n - ADD ");
+		else if(area[i]==MUL) printf("\n - MUL ");
+		else if(area[i]==DIV) printf("\n - DIV ");
+		else if(area[i]==MOV) printf("\n - MOV ");
+		else if(area[i]==IMM) printf("\n - IMM ");
+		else if(area[i]==NOT) printf("\n - NOT ");
+		else if(area[i]==SUB) printf("\n - SUB ");
+		else if(area[i]==PRTF) printf("\n - PRTF ");
+		else if(area[i]==EXT) printf("\n - EXT ");
+		else if(area[i]==CPY) printf("\n - CPY ");
 		else if(area[i]==AX) printf("AX ");
 		else if(area[i]==BX) printf("BX ");
 		else if(area[i]==CX) printf("CX ");
@@ -75,7 +75,6 @@ void dumpPseu(Bytecode* area,short limit) {
 		else {
 		    if(area[i+1]<=NOP) printf("%d",area[i]-24);
 		}
-		if(area[i+1]<=NOP) puts("");
 	}
 	return ;
 }
@@ -104,17 +103,18 @@ int main(void) {
       MOV AX,5 , // AX=5;
       IMM 6    , // (immt)=6;
       ADD AX     , // immt+=AX;                 (immt=11,AX=5)
-      MOV AX,11, // AX=11;
+      MOV AX,10, // AX=11;
       PRTF AX    , // printf("%s",memory+immt);
       MOV AX,0 , // AX=0;
       EXT AX     , // if(AX) goto Line(immt);
     }; // Pseudo-AsSeMbly
-    char memory[64]="classzheng\0Hello,world!\n\0";
+    char memory[64]="classzheng\0Hello,world!\0";
 	virtual.mem=(unsigned char*)malloc(64);
 	virtual.mem=memory;
     NeutralInt(area,17);
-    dumpPseu(area),17;
+    dumpPseu(area,17);
     return 0;
 }
 *                                         *
 *******************************************/
+
