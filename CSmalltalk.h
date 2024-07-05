@@ -103,15 +103,16 @@ Bytecode* compile(CSmalltalk* model) { // Still writing...
 		if((!strcmp(obj,"Pussy"))&&(!strcmp(method,"symbol:"))) { // Program External
 			char mark[12];
 			sscanf(args,"%s",mark);
+			for(k=0; k<strlen(mark); k++) if(mark[k]=='#') break;
 			C57Object mrk={
-			  .symbol=mark+j+1,
+			  .symbol=mark+j+k+1,
 			  .rdata="(null)",
 			};
 			objPool=(C57Object*)malloc(sizeof(C57Object)*(++ptop));
 			objPool[ptop-1]=mrk;
 			ObjFile[lmt++]=IMM;
 			ObjFile[lmt++]=ptop-1;
-			C57LOG("%s\n",mark);
+			C57LOG("%s\n",mark+j+k+1);
 			continue;
 		}
 		if(obj[0]=='/'||args[0]=='[') { // Function-return
