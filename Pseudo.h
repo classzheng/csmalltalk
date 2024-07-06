@@ -9,11 +9,18 @@ struct {
 } virtual;
 typedef enum {
     NOP=128,XOR,ADD,MUL,DIV,MOV,IMM,NOT,SUB,
-	PRTF,EXT,CPY,
+	PRTF,EXT,CPY,TRV,
 	AX,BX,CX,DX,SP,BP,SI,DI,IP,CS,DS,SS,ES,BRK,
 	IMMT=-1
 } Bytecode;
 short i,j,k,h,w,cnt0,cnt1,temp,ptop=0,lmt,ftop;
+unsigned char*substr(unsigned char*str,int beg,int end) {
+	unsigned char*sub=(unsigned char*)malloc((end-beg+1)*sizeof(unsigned char));
+	for(unsigned i = 0; i<(end-beg+1); i++) {
+		sub[i]=str[i+beg];
+	}
+	return sub;
+}
 void NeutralInt(Bytecode* method,short limit) {
 	virtual.regy=(unsigned char*)malloc(16);
 	for(i=0; i<limit; i++) {
@@ -35,11 +42,14 @@ void NeutralInt(Bytecode* method,short limit) {
   		  else _case(IMM) 
   		  	virtual.immt=method[i+1],i++;
   		  else _case(PRTF)
-  		  	printf("%s",virtual.mem+virtual.immt,0,virtual.regy[method[i+1]-AX]);
+  		  	printf("%s",substr(virtual.mem+virtual.immt,0,virtual.regy[method[i+1]-AX]));
   		  else _case(EXT)
   		  	if(virtual.regy[method[i+1]-AX]) i=virtual.immt;
+  		  else _case(TRV)
+  		  	virtual.immt=virtual.mem[virtual.regy[method[i+1]-AX]];
   		  else _case(CPY)
   		    strcpy(virtual.mem+virtual.regy[method[i+1]-AX],virtual.mem+virtual.regy[method[i+2]-AX]),i+=2;
+  		  else _case(BRK) break;
   		  else _case(NOP); // You should do nothing..
 	}
 	return ;
@@ -57,7 +67,9 @@ void dumpPseu(Bytecode* area,short limit) {
 		else if(area[i]==SUB) printf("\n - SUB ");
 		else if(area[i]==PRTF) printf("\n - PRTF ");
 		else if(area[i]==EXT) printf("\n - EXT ");
+		else if(area[i]==BRK) printf("\n - BRK ");
 		else if(area[i]==CPY) printf("\n - CPY ");
+		else if(area[i]==TRV) printf("\n - TRV ");
 		else if(area[i]==AX) printf("AX ");
 		else if(area[i]==BX) printf("BX ");
 		else if(area[i]==CX) printf("CX ");
@@ -73,12 +85,28 @@ void dumpPseu(Bytecode* area,short limit) {
 		else if(area[i]==ES) printf("ES ");
 		else if(area[i]==IMMT) printf("IMMT ");
 		else {
-		    if(area[i]<=NOP) printf("%d",area[i]);
+		    printf("%d",area[i]);
 		    if(area[i]>=NOP) printf(",");
 		}
+		if(area[i]==BRK) break;
 	}
 	return ;
 }
+#define PseuCmd
+#ifdef PseuCmd
+# define XOR XOR,
+# define NOT NOT,
+# define ADD ADD,
+# define SUB SUB,
+# define MUL MUL,
+# define DIV DIV,
+# define IMM IMM,
+# define MOV MOV,
+# define EXT EXT,
+# define CPY CPY,
+# define TRV TRV,
+# define PRTF PRTF,
+#endif
 /*****************************************
 * for Example                            *
 *  @classzheng 2024.7.4                  *

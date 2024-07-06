@@ -75,5 +75,6 @@ typedef struct {
 	short    mlt;
 	string   rdata;
 	string   symbol;
+	void(*argsplit)(Bytecode*,char*);
 } C57Object;
-C57Object* objPool;
+C57Object objPool[128];

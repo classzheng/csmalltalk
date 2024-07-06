@@ -5,13 +5,7 @@
 #define PseuCmd
 #include "Pseudo.h"
 #include "FMacro.h"
-char*substr(const char*str,int beg,int end) {
-	char*sub=(char*)malloc((end-beg+1)*sizeof(char));
-	for(unsigned i = 0; i<(end-beg+1); i++) {
-		sub[i]=str[i+beg];
-	}
-	return sub;
-}
+#include "C57External.h"
 Bool parse(CSmalltalk* model) {
 	if(model->limit==detect) model->limit=strlen(model->rcode);
 	$.bracks=(short*)malloc(model->limit*sizeof(short));
@@ -42,24 +36,17 @@ Bool parse(CSmalltalk* model) {
 	}
 	return True;
 }
-void flint(CSmalltalk* model) {
-	objPool=(C57Object*)malloc(sizeof(C57Object)*16),ptop=0;
-  	Bytecode prtl[]={        // immt=string address
-	  MOV AX,1,
-	  ADD AX  ,   // immt=string addr+1 (pass \')
-	  MOV AX,114, // While \0 end
-	  PRTF AX,
-	  MOV AX,0,
-	  EXT AX,
-	}; // PrintLambda
+void flint(void) {
+	ptop=0;
   	C57Object prt={
       .symbol="print:",
       .rdata="(lambda)", // Pseudo Lambda
   	  .path="Console",
-  	  .mlt=15,
-  	  .mth=prtl,
+  	  .mth=(Bytecode*){BRK},
+  	  .mlt=9,
+  	  .argsplit=CslPrint,
   	}; // Console Objects
-    objPool[ptop++]=prt;
+    objPool[ptop++]=prt,sizeof(prt);
 	return ;
 }
 #ifdef PseuCmd
@@ -72,6 +59,7 @@ void flint(CSmalltalk* model) {
 # undef MOV MOV,
 # undef IMM IMM,
 # undef EXT EXT,
+# undef TRV TRV,
 # undef CPY CPY,
 # undef PRTF PRTF,
 #endif
@@ -100,19 +88,8 @@ Bytecode* compile(CSmalltalk* model) { // Still writing...
 				break;
 			}
 		}
-		if((!strcmp(obj,"Pussy"))&&(!strcmp(method,"symbol:"))) { // Program External
-			char mark[12];
-			sscanf(args,"%s",mark);
-			for(k=0; k<strlen(mark); k++) if(mark[k]=='#') break;
-			C57Object mrk={
-			  .symbol=mark+j+k+1,
-			  .rdata="(null)",
-			};
-			objPool=(C57Object*)malloc(sizeof(C57Object)*(++ptop));
-			objPool[ptop-1]=mrk;
-			ObjFile[lmt++]=IMM;
-			ObjFile[lmt++]=ptop-1;
-			C57LOG("%s\n",mark+j+k+1);
+		if((!strcmp(obj,"NewObject"))&&(!strcmp(method,"symbol:"))) { // Program External
+			NewObjSyb(ObjFile,args);
 			continue;
 		}
 		if(obj[0]=='/'||args[0]=='[') { // Function-return
@@ -135,16 +112,13 @@ Bytecode* compile(CSmalltalk* model) { // Still writing...
 		}
 		for(j=0; j<ptop; j++) {
 			if((!strcmp(objPool[j].symbol,method))&&(!strcmp(objPool[j].path,obj))) {
-				sprintf(virtual.mem+virtual.mtop,"%s",args);
-				ObjFile[lmt++]=IMM;
-				ObjFile[lmt++]=virtual.mtop,virtual.mtop+=strlen(args);
-				for(k=0; k<objPool[j].mlt; k++) {
-					ObjFile[lmt++]=objPool[j].mth[k];
-				}
+				C57LOG("%s>%s,%s\n",method,obj,args);
+				objPool[j].argsplit(ObjFile,args);
 				break;
 			}
 		}
 	}
+	dumpPseu(ObjFile,lmt);
 	return ObjFile;
 }
 char beef[128];
