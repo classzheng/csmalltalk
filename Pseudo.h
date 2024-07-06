@@ -90,6 +90,7 @@ void dumpPseu(Bytecode* area,short limit) {
 		}
 		if(area[i]==BRK) break;
 	}
+	printf("\r\n");
 	return ;
 }
 #define PseuCmd

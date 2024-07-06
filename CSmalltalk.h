@@ -112,13 +112,11 @@ Bytecode* compile(CSmalltalk* model) { // Still writing...
 		}
 		for(j=0; j<ptop; j++) {
 			if((!strcmp(objPool[j].symbol,method))&&(!strcmp(objPool[j].path,obj))) {
-				C57LOG("%s>%s,%s\n",method,obj,args);
 				objPool[j].argsplit(ObjFile,args);
 				break;
 			}
 		}
 	}
-	dumpPseu(ObjFile,lmt);
 	return ObjFile;
 }
 char beef[128];

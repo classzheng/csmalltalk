@@ -1,15 +1,16 @@
 // CSmalltalk.C
 #include "CSmalltalk.h"
-int main(FPARAM(_arg,__arg,___arg)) { // Ha
+int main(FPARAM(ac,av,nv)) {
 	TRY(C57Exp,exp) {
 		C57LOG("[@CSmalltalk launch] CSmalltalk Launch.%s","\r\n");
 		CSmalltalk c57vm = {
-		  .rcode=_Mul("[Console print: 'classzheng']."),
+		  .rcode=_Mul("[Console print: 'Hello,world!']."),
 		  .limit=detect,
 		},JUST_LIKE_THAT;
 		virtual.mem=(unsigned char*)malloc(4096);
 		c57vm,parse(&c57vm),flint();
-		// NeutralInt(compile(&c57vm),lmt);
+		Bytecode* dumpData=compile(&c57vm);
+		NeutralInt(dumpData,lmt),dumpPseu(dumpData,lmt);
 		C57LOG("[@CSmalltalk logout] EXIT 0.%s","\r\n");
 		return 0;
 	} CATCH(exp,ENOUGH_MEM) {

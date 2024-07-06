@@ -21,7 +21,7 @@
 # ifdef NDEBUG
 #  define C57LOG(...) return 0;
 # else
-#  define C57LOG(...) fprintf(stderr,__VA_ARGS__);
+#  define C57LOG(...) fprintf(stdout,__VA_ARGS__);
 # endif
 #endif
 
