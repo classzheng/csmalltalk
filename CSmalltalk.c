@@ -16,7 +16,7 @@ int main(FPARAM(ac,av,nv)) {
 	TRY(C57Exp,exp) {
 		C57LOG("[@CSmalltalk launch] CSmalltalk Launch.%s","\r\n");
 		CSmalltalk c57vm = {
-		  .rcode=_Mul("[Console print: 'CSmalltalk v0.9 CoffeeRain release\n']."),
+		  .rcode=_Mul("[Console print: '> CSmalltalk v0.9 CoffeeRain release < XShell\n']."),
 		  .limit=detect,
 		},JUST_LIKE_THAT;
 		Bool dumpMode=False;
