@@ -1,7 +1,7 @@
 <table border="1">
     <tr>
         <td><img src="https://gitee.com/ClassesWorld/csmalltalk/raw/master/CSmalltalk.png" /> </td>
-        <td><h1><strong> CSmalltalk </strong>2024.7.5快照尊享版</h1><sub>表格硬排版(苦笑)</sub></td>
+        <td><h1><strong> CSmalltalk </strong>CoffeeRain快照尊享版</h1><sub>表格硬排版(苦笑)</sub></td>
     </tr>
 </table>
 <table border="1"> <caption>简介</caption>
