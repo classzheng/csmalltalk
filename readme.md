@@ -21,7 +21,7 @@
         <td>
         &nbsp;&nbsp;&nbsp;做好自己的每一步! <br>
 <pre>
-<code>git clone "https://gitee.com/ClassesWorld/csmallltalk.git"            
+<code>git clone "https://gitee.com/ClassesWorld/csmallltalk.git"                                  
 cd csmalltalk
 micro *.c *.h *.c57</code>
 </pre>
