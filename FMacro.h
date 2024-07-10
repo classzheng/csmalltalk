@@ -19,9 +19,9 @@
 )
 # define nil (NULL)
 # ifdef NDEBUG
-#  define C57LOG(...) return 0;
+#  define C57LOG(...) return 0
 # else
-#  define C57LOG(...) fprintf(stdout,__VA_ARGS__);
+#  define C57LOG(...) fprintf(stdout,__VA_ARGS__)
 # endif
 #endif
 
@@ -62,6 +62,7 @@ typedef struct {
 	char* rcode;
 	short limit;
 	string*sybl;
+	Bool  next;
 	struct {
 		short* bracks;
 		     int btop;
@@ -75,6 +76,6 @@ typedef struct {
 	short    mlt;
 	string   rdata;
 	string   symbol;
-	void(*argsplit)(Bytecode*,char*);
+	void(*argsplit)(Bytecode*,char*,short);
 } C57Object;
 C57Object objPool[128];
