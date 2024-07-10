@@ -9,11 +9,11 @@ struct {
 } virtual;
 typedef enum {
     NOP=128,XOR,ADD,MUL,DIV,MOV,IMM,NOT,SUB,
-	PRTF,EXT,CPY,TRV,
-	AX,BX,CX,DX,SP,BP,SI,DI,IP,CS,DS,SS,ES,BRK,
+	PRTF,EXT,CPY,TRV,SCNF,
+	AX,BX,CX,DX,SP,BP,SI,DI,IP,CS,DS,SS,ES,BRK,RET,
 	IMMT=-1
 } Bytecode;
-short i,j,k,h,w,cnt0,cnt1,temp,ptop=0,lmt,ftop;
+short i,j,k,h,w,cnt0,cnt1,temp,ptop=0,lmt,ftop,t;
 unsigned char*substr(unsigned char*str,int beg,int end) {
 	unsigned char*sub=(unsigned char*)malloc((end-beg+1)*sizeof(unsigned char));
 	for(unsigned i = 0; i<(end-beg+1); i++) {
@@ -41,8 +41,12 @@ void NeutralInt(Bytecode* method,short limit) {
   		  	virtual.regy[method[i+1]-AX]=(method[i+2]==IMMT?virtual.immt:method[i+2]),i+=2;
   		  else _case(IMM) 
   		  	virtual.immt=method[i+1],i++;
+  		  else _case(RET) 
+  		    virtual.immt=method[i+1],i++;
   		  else _case(PRTF)
   		  	printf("%s",substr(virtual.mem+virtual.immt,0,virtual.regy[method[i+1]-AX]));
+  		  else _case(SCNF)
+  		  	scanf("%s",virtual.mem+virtual.immt);
   		  else _case(EXT)
   		  	if(virtual.regy[method[i+1]-AX]) i=virtual.immt;
   		  else _case(TRV)
@@ -66,7 +70,9 @@ void dumpPseu(Bytecode* area,short limit) {
 		else if(area[i]==NOT) printf("\n - NOT ");
 		else if(area[i]==SUB) printf("\n - SUB ");
 		else if(area[i]==PRTF) printf("\n - PRTF ");
+		else if(area[i]==SCNF) printf("\n - SCNF ");
 		else if(area[i]==EXT) printf("\n - EXT ");
+		else if(area[i]==RET) printf("\n - RET ");
 		else if(area[i]==BRK) printf("\n - BRK ");
 		else if(area[i]==CPY) printf("\n - CPY ");
 		else if(area[i]==TRV) printf("\n - TRV ");
@@ -104,6 +110,7 @@ void dumpPseu(Bytecode* area,short limit) {
 # define IMM IMM,
 # define MOV MOV,
 # define EXT EXT,
+# define RET RET,
 # define CPY CPY,
 # define TRV TRV,
 # define PRTF PRTF,
@@ -133,3 +140,4 @@ int main(void) {
 }
 *                                         *
 *******************************************/
+
