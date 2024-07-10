@@ -1,6 +1,6 @@
 <table border="1">
     <tr>
-        <td><img src="https://gitee.com/ClassesWorld/csmalltalk/raw/master/CSmalltalk.png" /> </td>
+        <td><img src="https://raw.githubusercontent.com/classzheng/csmalltalk/master/CSmalltalk.png" /> </td>
         <td><h1><strong> CSmalltalk </strong>CoffeeRain快照尊享版</h1><sub>表格硬排版(苦笑)</sub></td>
     </tr>
 </table>
